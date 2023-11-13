@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     void GetInputs()
     {
-        
+
         xAxis = Input.GetAxisRaw("Horizontal");
 
     }
@@ -47,12 +47,12 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(walkSpeed * xAxis, rb.velocity.y);
         animator.SetFloat("Speed", Mathf.Abs(xAxis));
         Debug.Log(xAxis);
-        if(Input.GetKeyDown("left"))
+        if (xAxis == -1)
         {
             sprite.flipX = true;
         }
 
-        if (Input.GetKeyDown("right"))
+        if (xAxis == 1)
         {
             sprite.flipX = false;
         }
