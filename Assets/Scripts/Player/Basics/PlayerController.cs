@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = new Vector2(walkSpeed * xAxis, rb.velocity.y);
         animator.SetFloat("Speed", Mathf.Abs(xAxis));
-        Debug.Log(xAxis);
+        //Debug.Log(xAxis);
         if (xAxis == -1)
         {
             sprite.flipX = true;
