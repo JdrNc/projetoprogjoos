@@ -20,7 +20,7 @@ public class EnemyHealth : MonoBehaviour
     {
         health -= amount;
         animator.SetTrigger("Hurt");
-        Debug.Log(health);
+
         if (health <= 0)
         {
             Die();
@@ -29,9 +29,7 @@ public class EnemyHealth : MonoBehaviour
     public void Die(){
 
         Debug.Log("Enemy Died");
-
         animator.SetBool("Dead", true);
-
         Invoke("DestroyEnemy", 1.18f);
     }
 

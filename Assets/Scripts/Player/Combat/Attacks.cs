@@ -39,15 +39,14 @@ public class Attacks : MonoBehaviour
 
     void Attack1()
     {
-        Debug.Log(isAttacking);
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         isAttacking = true;
-        Debug.Log(isAttacking);
         animator.SetBool("Attacking", isAttacking);
         
 
         foreach (Collider2D enemy in hitEnemies)
         {
+            //Colocar sempre um dano que seja multiplicado por 2 pois o inimigo tem dois Collider o que dobra a superfície de colisão dobrando o dano.
             enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
         }
     Invoke("ResetAttack", 0.5f);
