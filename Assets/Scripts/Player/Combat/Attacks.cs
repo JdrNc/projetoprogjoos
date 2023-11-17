@@ -20,6 +20,9 @@ public class Attacks : MonoBehaviour
     public LayerMask enemyLayer;
     public EnemyHealth enemyHealth;
 
+    public PlayerController getControl;
+    public float KBforce;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,14 +45,14 @@ public class Attacks : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         isAttacking = true;
         animator.SetBool("Attacking", isAttacking);
-        
 
         foreach (Collider2D enemy in hitEnemies)
         {
             //Colocar sempre um dano que seja multiplicado por 2 pois o inimigo tem dois Collider o que dobra a superfície de colisão dobrando o dano.
-            enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+            bool facingRight = (transform.position.x < enemy.transform.position.x);
+            enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage, facingRight, KBforce);
         }
-    Invoke("ResetAttack", 0.5f);
+        Invoke("ResetAttack", 0.5f);
     }
 
     void ResetAttack()

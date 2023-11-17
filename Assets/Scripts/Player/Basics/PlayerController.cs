@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [Header("Horizontal Movement Settings:")]
     [SerializeField] private float walkSpeed = 1;
     public Animator animator;
-
+    public Transform attackPoint;
     [SerializeField] private float jumpForce = 45;
 
     [Header("Ground Check Settings:")]
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        attackPoint.parent = transform;
     }
 
     void Update()
@@ -35,10 +36,12 @@ public class PlayerController : MonoBehaviour
         Jump();
     }
 
-    void GetInputs()
+    public float GetInputs()
     {
 
         xAxis = Input.GetAxisRaw("Horizontal");
+
+        return xAxis;
 
     }
 
@@ -46,16 +49,25 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = new Vector2(walkSpeed * xAxis, rb.velocity.y);
         animator.SetFloat("Speed", Mathf.Abs(xAxis));
+
+
         //Debug.Log(xAxis);
         if (xAxis == -1)
         {
             sprite.flipX = true;
+
+            //Inverte o hitbox para o lado que o personagem está virado
+            attackPoint.localPosition = new Vector3(-Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
         }
 
         if (xAxis == 1)
         {
             sprite.flipX = false;
+
+            //Inverte o hitbox para o lado que o personagem está virado
+            attackPoint.localPosition = new Vector3(Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
         }
+
     }
 
     public bool Grounded()
@@ -81,6 +93,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && Grounded())
         {
+            Debug.Log(Grounded());
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
         }
     }
@@ -88,5 +101,12 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer getSprite()
     {
         return sprite;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            rb.velocity = Vector2.zero;  // Define a velocidade do jogador como zero
+        }
     }
 }

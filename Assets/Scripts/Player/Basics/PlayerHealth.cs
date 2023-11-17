@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     // Start is called before the first frame update
     public int health;
@@ -10,11 +10,11 @@ public class EnemyHealth : MonoBehaviour
     public Animator animator;
     public int maxHealth = 10;
 
-    public Rigidbody2D enemyRb;
+    public Rigidbody2D playerRb;
     void Start()
     {
         health = maxHealth;
-        enemyRb = GetComponent<Rigidbody2D>();
+        playerRb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -24,15 +24,17 @@ public class EnemyHealth : MonoBehaviour
         //Se ele tomar dado da esquerda ele vai pular pra esquerda se ele tomar dano direita ele vai pular pra direita.
         if (facingRight)
         {
-            enemyRb.AddForce(Vector2.right * KBforce, ForceMode2D.Impulse);
+            Debug.Log("Direita");
+            playerRb.AddForce(Vector2.right * KBforce, ForceMode2D.Impulse);
         }
         else
         {
-            enemyRb.AddForce(Vector2.left * KBforce, ForceMode2D.Impulse);
+            Debug.Log("Esquerda");
+            playerRb.AddForce(Vector2.left * KBforce, ForceMode2D.Impulse);
         }
 
         health -= amount;
-        animator.SetTrigger("Hurt");
+        // animator.SetTrigger("Hurt");
         if (health <= 0)
         {
             Die();
@@ -41,12 +43,12 @@ public class EnemyHealth : MonoBehaviour
     public void Die()
     {
 
-        Debug.Log("Enemy Died");
-        animator.SetBool("Dead", true);
-        Invoke("DestroyEnemy", 1.18f);
+        Debug.Log("Player Died");
+        // animator.SetBool("Dead", true);
+        Invoke("DestroyPlayer", 1.18f);
     }
 
-    void DestroyEnemy()
+    void DestroyPlayer()
     {
         Destroy(gameObject);
     }
