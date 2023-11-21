@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 10;
 
     public Rigidbody2D playerRb;
+
+    public GameOverScreen GamerOverScreen;
     void Start()
     {
         health = maxHealth;
@@ -28,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
         if (facingRight)
         {
             Debug.Log("Direita");
-            
+
 
 
 
@@ -39,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
             playerRb.AddForce(Vector2.left * KBforce, ForceMode2D.Impulse);
         }
 
-        
+
 
         health -= amount;
         // animator.SetTrigger("Hurt");
@@ -54,6 +56,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player Died");
         // animator.SetBool("Dead", true);
         Invoke("DestroyPlayer", 1.18f);
+
+        GamerOverScreen.Setup();
     }
 
     void DestroyPlayer()
