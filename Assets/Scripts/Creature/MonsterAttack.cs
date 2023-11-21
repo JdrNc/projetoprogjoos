@@ -6,10 +6,12 @@ public class MonsterAttack : MonoBehaviour
 {
     private bool isAttacking;
     public Animator animator;
-    private Rigidbody2D rb;
+    public Transform rb;
+    public Rigidbody2D player;
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public int attackDamage;
+
 
     public float attackRate = 2f;
 
@@ -21,7 +23,7 @@ public class MonsterAttack : MonoBehaviour
     void Start()
     {
 
-
+        
         // Adicione 10 segundos
         isAttacking = false;
     }
@@ -50,15 +52,40 @@ public class MonsterAttack : MonoBehaviour
     {
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
         isAttacking = true;
+        
         animator.SetTrigger("PlayerDetected1");
+
+        bool facingRight = (player.position.x > rb.position.x);
+        StartCoroutine(Example());
+/*        
 
         foreach (Collider2D player in hitPlayers)
         {
             //Colocar sempre um dano que seja multiplicado por 2 pois o inimigo tem dois Collider o que dobra a superfície de colisão dobrando o dano.
-            bool facingRight = (transform.position.x < player.transform.position.x);
             player.GetComponent<PlayerHealth>().TakeDamage(attackDamage, facingRight, KBforce);
-        }
 
+
+        }*/
+
+    }
+
+    IEnumerator Example()
+    {
+        isAttacking = true;
+        Debug.Log("Test");
+        yield return new WaitForSeconds(0.4f);
+        
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
+        Debug.Log("Test2");
+        bool facingRight = (player.position.x > rb.position.x);
+        foreach (Collider2D player in hitPlayers)
+        {
+            //Colocar sempre um dano que seja multiplicado por 2 pois o inimigo tem dois Collider o que dobra a superfície de colisão dobrando o dano.
+            
+            player.GetComponent<PlayerHealth>().TakeDamage(attackDamage, facingRight, KBforce);
+
+
+        }
     }
     void OnDrawGizmosSelected()
     {

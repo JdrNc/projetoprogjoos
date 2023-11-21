@@ -32,6 +32,7 @@ public class MonsterMovement : MonoBehaviour
             // {
             //     patrolPoints[0].position = transform.position;
             //}
+   
             if (Vector2.Distance(transform.position, patrolPoints[0].position) < 0.2f)
             {
 

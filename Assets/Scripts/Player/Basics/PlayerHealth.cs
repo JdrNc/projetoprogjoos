@@ -21,17 +21,25 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount, bool facingRight, float KBforce)
     {
+
+
+
         //Se ele tomar dado da esquerda ele vai pular pra esquerda se ele tomar dano direita ele vai pular pra direita.
         if (facingRight)
         {
             Debug.Log("Direita");
-            playerRb.AddForce(Vector2.right * KBforce, ForceMode2D.Impulse);
+            
+
+
+
         }
         else
         {
             Debug.Log("Esquerda");
             playerRb.AddForce(Vector2.left * KBforce, ForceMode2D.Impulse);
         }
+
+        
 
         health -= amount;
         // animator.SetTrigger("Hurt");
@@ -54,6 +62,10 @@ public class PlayerHealth : MonoBehaviour
     }
     void Update()
     {
+
+
+
+
 
     }
 }
