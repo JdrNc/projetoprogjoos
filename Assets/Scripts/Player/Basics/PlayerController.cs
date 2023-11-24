@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Check Settings:")]
     [SerializeField] private Transform groundCheckPoint;
-    [SerializeField] private float groundCheckY = 0.2f;
-    [SerializeField] private float groundCheckX = 0.5f;
     [SerializeField] private LayerMask whatIsGround;
 
     private bool grounded;

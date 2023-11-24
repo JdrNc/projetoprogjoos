@@ -23,7 +23,7 @@ public class MonsterAttack : MonoBehaviour
     void Start()
     {
 
-        
+
         // Adicione 10 segundos
         isAttacking = false;
     }
@@ -52,20 +52,20 @@ public class MonsterAttack : MonoBehaviour
     {
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
         isAttacking = true;
-        
+
         animator.SetTrigger("PlayerDetected1");
 
         bool facingRight = (player.position.x > rb.position.x);
         StartCoroutine(Example());
-/*        
+        /*        
 
-        foreach (Collider2D player in hitPlayers)
-        {
-            //Colocar sempre um dano que seja multiplicado por 2 pois o inimigo tem dois Collider o que dobra a superfície de colisão dobrando o dano.
-            player.GetComponent<PlayerHealth>().TakeDamage(attackDamage, facingRight, KBforce);
+                foreach (Collider2D player in hitPlayers)
+                {
+                    //Colocar sempre um dano que seja multiplicado por 2 pois o inimigo tem dois Collider o que dobra a superfície de colisão dobrando o dano.
+                    player.GetComponent<PlayerHealth>().TakeDamage(attackDamage, facingRight, KBforce);
 
 
-        }*/
+                }*/
 
     }
 
@@ -73,15 +73,15 @@ public class MonsterAttack : MonoBehaviour
     {
         isAttacking = true;
         Debug.Log("Test");
-        yield return new WaitForSeconds(0.4f);
-        
+        yield return new WaitForSeconds(0.6f);
+
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
         Debug.Log("Test2");
         bool facingRight = (player.position.x > rb.position.x);
         foreach (Collider2D player in hitPlayers)
         {
             //Colocar sempre um dano que seja multiplicado por 2 pois o inimigo tem dois Collider o que dobra a superfície de colisão dobrando o dano.
-            
+
             player.GetComponent<PlayerHealth>().TakeDamage(attackDamage, facingRight, KBforce);
 
 
