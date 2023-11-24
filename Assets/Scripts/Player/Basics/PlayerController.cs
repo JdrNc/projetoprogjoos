@@ -15,7 +15,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckY = 0.2f;
     [SerializeField] private float groundCheckX = 0.5f;
     [SerializeField] private LayerMask whatIsGround;
+
+    private bool grounded;
     private SpriteRenderer sprite;
+
+    private int counter;
 
     //References
     Rigidbody2D rb;
@@ -25,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         attackPoint.parent = transform;
+        grounded = false;
     }
 
     void Update()
@@ -70,7 +75,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void OnCollisionExit2D(Collision2D collision)
+    {
 
+        Debug.Log("UNGROUNDED");
+        grounded = false;
+
+    }
     void Jump()
     {
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
@@ -78,9 +89,9 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && counter < 1)
         {
-      
+            counter++;
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
         }
     }
@@ -91,6 +102,17 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        if (collision.gameObject.tag == ("Ground"))
+        {
+            Debug.Log("GROUNDED");
+            grounded = true;
+            counter = 0;
+        }
+        else
+        {
+            grounded = false;
+        }
         if (collision.gameObject.CompareTag("Enemy"))
         {
             rb.velocity = Vector2.zero;  // Define a velocidade do jogador como zero
