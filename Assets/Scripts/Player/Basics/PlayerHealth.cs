@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("Direita");
 
 
-
+            playerRb.AddForce(Vector2.right * KBforce, ForceMode2D.Impulse);
 
         }
         else
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("Player Died");
         // animator.SetBool("Dead", true);
-        Invoke("DestroyPlayer", 1.18f);
+        Invoke("DestroyPlayer", 0.5f);
 
         GamerOverScreen.Setup();
     }
